@@ -1,0 +1,31 @@
+<?php
+/**
+ * SphinxConfig Configuration
+ *
+ * If you have a ./config/autoload/ directory set up for your project, you can
+ * drop this config file in it and change the values as you wish.
+ */
+$config = array(
+    /**
+     * Current config id, defines what files with config data will be read.
+     * ".yaml extension will be appended to get full filename with data"
+     */
+    'config_id' => 'default',
+
+    /**
+     * The path to the directory where the configuration
+     * files are in the YAML format
+     */
+    'config_dir' => './config/sphinx-config',
+
+    /**
+     * The path to directory where Sphinx the configuration
+     * files will be rendered to
+     */
+    'render_dir' => './data/sphinx-config',
+);
+
+
+return array(
+    'sphinx_config' => $config,
+);
