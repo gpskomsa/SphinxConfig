@@ -1,0 +1,11 @@
+fields:
+  - title
+  - description
+
+attributes:
+  title:
+    type: string
+  duration:
+    type: int
+    bits: 16
+    default: 0

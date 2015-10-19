@@ -1,0 +1,18 @@
+constants:
+  SPHINX_PATH: '/usr/local/sbin'
+  SPHINX_DATA_PATH: '/var/db/sphinxsearch'
+
+searchd:
+  options:
+    query_log_format: sphinxql
+    max_children: 0
+    max_matches: 3000
+    dist_threads: 4
+    workers: threads
+    listen:
+      - '0.0.0.0:3312'
+      - '0.0.0.0:9306:mysql41'
+    binlog_path: '/var/db/sphinxsearch/log'
+    log: '/var/db/sphinxsearch/log/searchd.log'
+    query_log: '/var/db/sphinxsearch/log/query.log'
+    pid_file: '/var/db/sphinxsearch/log/searchd.pid'

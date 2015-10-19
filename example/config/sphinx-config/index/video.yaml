@@ -1,0 +1,22 @@
+source:
+  chunks:
+    count: 4,
+    common:
+      options:
+        type: xmlpipe2
+
+index:
+  distributed: 1
+  options:
+    ondisk_dict: 1
+  chunks:
+    count: 4
+    common:
+      options:
+        path: '{SPHINX_DATA_PATH}/{SECTION_NAME}'
+        source: '{SECTION_NAME}'
+        morphology: stem_en, stem_ru
+        charset_type: utf-8
+        charset_table : >
+          U+0030..U+0039,
+          U+0041..U+005a->U+0061..U+007a,U+0061..U+007a,
