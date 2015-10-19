@@ -2,6 +2,7 @@ source:
   chunks:
     count: 4,
     common:
+      xmlpipeCommandTemplate: 'php some/path/to/script.php index build {SECTION_NAME}'
       options:
         type: xmlpipe2
 

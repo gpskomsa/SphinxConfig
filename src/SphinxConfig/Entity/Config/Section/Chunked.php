@@ -3,8 +3,10 @@
 namespace SphinxConfig\Entity\Config\Section;
 
 use SphinxConfig\Entity\Config\Section;
+use SphinxConfig\Entity\Service\SectionFactoryAwareInterface;
+use SphinxConfig\Entity\Service\SectionFactoryInterface;
 
-class Chunked extends Section
+class Chunked extends Section implements SectionFactoryAwareInterface
 {
     /**
      * Subsections
@@ -14,11 +16,29 @@ class Chunked extends Section
     protected $chunks = array();
 
     /**
+     *
+     * @var SectionFactoryInterface
+     */
+    protected $sectionFactory = null;
+
+    /**
+     *
+     * @param SectionFactoryInterface $sectionFactory
+     * @return \SphinxConfig\Entity\Config\Section\Chunked
+     */
+    public function setSectionFactory(SectionFactoryInterface $sectionFactory)
+    {
+        $this->sectionFactory = $sectionFactory;
+
+        return $this;
+    }
+
+    /**
      * Hook for parameter's setup
      *
      * @param array $params
      */
-    public function setParams(array $params)
+    public function initialize(array $params)
     {
         if (isset($params['chunks'])
             && isset($params['chunks']['count'])) {
@@ -47,7 +67,7 @@ class Chunked extends Section
             unset($params['chunks']);
         }
 
-        parent::setParams($params);
+        parent::initialize($params);
     }
 
     /**

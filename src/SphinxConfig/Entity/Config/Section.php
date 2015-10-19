@@ -2,9 +2,7 @@
 
 namespace SphinxConfig\Entity\Config;
 
-use SphinxConfig\Entity\Service\SectionFactoryInterface;
-
-class Section
+abstract class Section
 {
     /**
      * Required options
@@ -42,13 +40,6 @@ class Section
     protected $constants = array();
 
     /**
-     * Section factory
-     *
-     * @var SectionFactoryInterface
-     */
-    protected $sectionFactory = null;
-
-    /**
      * Section's options
      *
      * @var array
@@ -56,20 +47,18 @@ class Section
     protected $options = array();
 
     /**
+     * Setup object
      *
-     * @param SectionFactoryInterface $sectionFactory
      * @param array $params
+     * @return Section
      */
-    public function __construct(
-        SectionFactoryInterface $sectionFactory,
-        array $params = array()
-    )
+    public function initialize(array $params)
     {
+        $this->reset();
+
         if (!isset($params['sectionType'])) {
             throw new \Exception('sectionType not defined');
         }
-
-        $this->sectionFactory = $sectionFactory;
 
         if (isset($params['sectionName'])) {
             $params['constants']['SECTION_NAME'] = $params['sectionName'];
@@ -80,17 +69,6 @@ class Section
             unset($params['constants']);
         }
 
-        $this->setParams($params);
-    }
-
-    /**
-     * Setup object parameters
-     *
-     * @param array $params
-     * @return Section
-     */
-    public function setParams(array $params)
-    {
         foreach ($params as $key => $value) {
             $method = 'set' . ucfirst($key);
             if (method_exists($this, $method)) {
@@ -99,6 +77,19 @@ class Section
                 $this->{$key} = $this->applyConstants($value);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Resets object state
+     *
+     * @return \SphinxConfig\Entity\Config\Section
+     */
+    public function reset()
+    {
+        $this->options = array();
+        $this->constants = array();
 
         return $this;
     }
@@ -234,8 +225,12 @@ class Section
     {
         $title = $this->sectionType;
 
-        if ($this->sectionName) {
-            $title .= ' ' . $this->sectionName;
+        if (!$title) {
+            throw new \Exception('section type is not defined');
+        }
+
+        if ($this->getName()) {
+            $title .= ' ' . $this->getName();
         }
 
         if ($this->sectionExtends) {

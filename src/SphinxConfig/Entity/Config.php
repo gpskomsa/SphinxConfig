@@ -6,17 +6,12 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventManager;
 
 use SphinxConfig\Entity\Service\SectionFactoryInterface;
+use SphinxConfig\Entity\Service\SectionFactoryAwareInterface;
 
 use SphinxConfig\Entity\Config\Section\Chunked;
 
-class Config
+class Config implements SectionFactoryAwareInterface
 {
-    /**
-     *
-     * @var SectionFactoryInterface
-     */
-    protected $sectionFactory = null;
-
     /**
      *
      * @var array

@@ -2,15 +2,17 @@
 
 namespace SphinxConfig\Entity\Service;
 
-use SphinxConfig\Entity\Config\Section\Chunked;
-use SphinxConfig\Entity\Config\Section\Searchd;
-use SphinxConfig\Entity\Config\Section\Source;
-use SphinxConfig\Entity\Config\Section\Index;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-class SectionFactory implements SectionFactoryInterface
+use SphinxConfig\Entity\Config\Section;
+
+class SectionFactory implements SectionFactoryInterface, ServiceLocatorAwareInterface
 {
+    use ServiceLocatorAwareTrait;
+
     /**
-     * Отдает объект Section
+     * Returns Section object by its type
      *
      * @param array $options
      * @param string $type
@@ -22,20 +24,30 @@ class SectionFactory implements SectionFactoryInterface
             $options['sectionType'] = $type;
         }
 
+        if (isset($options['sectionType']) && $options['sectionType'] && null === $type) {
+            $type = $options['sectionType'];
+        }
+
         switch ($type) {
             case 'searchd':
-                $section = new Searchd($this, $options);
+                $section = $this->serviceLocator->get('Section\Searchd');
                 break;
             case 'source':
-                $section = new Source($this, $options);
+                $section = $this->serviceLocator->get('Section\Source');
                 break;
             case 'index':
-                $section = new Index($this, $options);
+                $section = $this->serviceLocator->get('Section\Index');
                 break;
             default:
-                $section = new Chunked($this, $options);
+                throw new \Exception('invalid type of section: ' . $type);
                 break;
         }
+
+        if ($section instanceof SectionFactoryAwareInterface) {
+            $section->setSectionFactory($this);
+        }
+
+        $section->initialize($options);
 
         return $section;
     }

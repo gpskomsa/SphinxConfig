@@ -16,9 +16,9 @@ class Index extends Chunked
      *
      * @param array $params
      */
-    public function setParams(array $params)
+    public function initialize(array $params)
     {
-        parent::setParams($params);
+        parent::initialize($params);
 
         if ($this->distributed) {
             if (!isset($this->options['local'])

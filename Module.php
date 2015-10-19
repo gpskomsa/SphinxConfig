@@ -67,6 +67,16 @@ class Module implements ConsoleUsageProviderInterface
             ),
             'invokables' => array(
                 'SectionFactory' => 'SphinxConfig\Entity\Service\SectionFactory',
+                'Section\Searchd' => 'SphinxConfig\Entity\Config\Section\Searchd',
+                'Section\Source' => 'SphinxConfig\Entity\Config\Section\Source',
+                'Section\Index' => 'SphinxConfig\Entity\Config\Section\Index',
+                'Section\Chunked' => 'SphinxConfig\Entity\Config\Section\Chunked',
+            ),
+            'shared' => array(
+                'Section\Searchd' => false,
+                'Section\Source' => false,
+                'Section\Index' => false,
+                'Section\Chunked' => false,
             ),
         );
     }
