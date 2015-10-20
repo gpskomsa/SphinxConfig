@@ -1,6 +1,6 @@
 {
     "name": "gpskomsa/sphinx-config",
-    "description": "A zf2 module for help to build sphinx config files",
+    "description": "A zf2 module as a tool to build sphinx config files",
     "type": "library",
     "keywords": [
         "zf2",
