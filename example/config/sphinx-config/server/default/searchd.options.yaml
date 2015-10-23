@@ -1,0 +1,8 @@
+query_log_format: sphinxql
+max_children: 0
+max_matches: 3000
+dist_threads: 4
+workers: threads
+listen:
+  - '0.0.0.0:3312'
+  - '0.0.0.0:9306:mysql41'

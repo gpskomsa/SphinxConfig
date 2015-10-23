@@ -6,15 +6,15 @@ indexes:
       - video
 
 constants:
-  extends: default
+  @include: default/constant.yaml
 
 searchd:
-  extends: default
   options:
+    @include: default/searchd.options.yaml
     listen:
-      - '0.0.0.0:3312'
-      - '0.0.0.0:9306:mysql41'
-    binlog_path: '/var/db/sphinxsearch/log'
-    log: '/var/db/sphinxsearch/log/searchd.log'
-    query_log: '/var/db/sphinxsearch/log/query.log'
-    pid_file: '/var/db/sphinxsearch/log/searchd.pid'
+      - '0.0.0.0:3313'
+      - '0.0.0.0:9307:mysql41'
+    binlog_path: '{SPHINX_DATA_PATH}/log'
+    log: '{SPHINX_DATA_PATH}/log/searchd.log'
+    query_log: '{SPHINX_DATA_PATH}/log/query.log'
+    pid_file: '{SPHINX_DATA_PATH}/log/searchd.pid'

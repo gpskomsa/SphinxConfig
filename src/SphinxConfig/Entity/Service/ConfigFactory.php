@@ -97,14 +97,14 @@ class ConfigFactory implements ConfigFactoryInterface
         $filename = $configStorage . DIRECTORY_SEPARATOR . 'server'
                 . DIRECTORY_SEPARATOR . $target . '.yaml';
 
-        $config = $this->loadConfig($filename);
+        $config = $this->readFile($filename);
 
         $indexes = array();
         if (isset($config['indexes']['list'][$type])) {
             foreach ($config['indexes']['list'][$type] as $index) {
                 $filename = $configStorage . DIRECTORY_SEPARATOR . 'index'
                         . DIRECTORY_SEPARATOR . $index . '.yaml';
-                $indexes[$index] = $this->loadConfig($filename);
+                $indexes[$index] = $this->readFile($filename);
 
                 if (isset($config['indexes'][$index])
                 && is_array($config['indexes'][$index])) {
@@ -117,40 +117,6 @@ class ConfigFactory implements ConfigFactoryInterface
         }
 
         $config['indexes'] = $indexes;
-
-        return $config;
-    }
-
-    /**
-     * Loads config file
-     *
-     * @param string $filename
-     * @param array $inheritance
-     * @return array
-     */
-    protected function loadConfig($filename, array $inheritance = array())
-    {
-        $config = $this->readFile($filename);
-
-        foreach ($config as $section => &$data) {
-            if (isset($data['extends'])) {
-                if (in_array($data['extends'], $inheritance)) {
-                    throw new \Exception('inheritance loop detected for ' . $data['extends']);
-                }
-
-                $ext = dirname($filename)
-                    . DIRECTORY_SEPARATOR . $data['extends'] . '.yaml';
-
-                array_push($inheritance, $data['extends']);
-                $extend = $this->loadConfig($ext, $inheritance);
-                array_pop($inheritance);
-
-                if (isset($extend[$section])) {
-                    $data = $this->arrayMergeRecursive($extend[$section], $data);
-                }
-                unset($data['extends']);
-            }
-        }
 
         return $config;
     }

@@ -1,0 +1,2 @@
+SPHINX_PATH: '/usr/local/sbin'
+SPHINX_DATA_PATH: '/var/db/sphinxsearch'
