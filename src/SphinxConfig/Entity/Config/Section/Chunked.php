@@ -101,6 +101,17 @@ class Chunked extends Section implements SectionFactoryAwareInterface
     }
 
     /**
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function hasChunk($id)
+    {
+        return isset($this->chunks[$id]);
+    }
+
+
+    /**
      * Returns subsection by id
      *
      * @param integer $id
