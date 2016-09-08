@@ -16,7 +16,7 @@ SphinxConfig is a module for Zend Framework 2 to build and to control over confi
     Add this project in your composer.json:
 
     "require": {
-        "gpskomsa/SphinxConfig": "dev-master"
+        "gpskomsa/sphinx-config": "dev-master"
     }
 
     Now tell composer to download SphinxConfig by running the command:
