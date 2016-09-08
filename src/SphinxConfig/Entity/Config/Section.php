@@ -26,7 +26,7 @@ abstract class Section
     protected $sectionName = null;
 
     /**
-     * Section's parent(not working)
+     * Parent section name
      *
      * @var string
      */
@@ -172,6 +172,29 @@ abstract class Section
     }
 
     /**
+     * Set parent section name
+     *
+     * @param string $value
+     * @return \SphinxConfig\Entity\Config\Section
+     */
+    public function setExtends($value)
+    {
+        $this->sectionExtends = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get parent section name
+     *
+     * @return string
+     */
+    public function getExtends()
+    {
+        return $this->sectionExtends;
+    }
+
+    /**
      *
      * @param string $name
      * @param string $value
@@ -233,8 +256,8 @@ abstract class Section
             $title .= ' ' . $this->getName();
         }
 
-        if ($this->sectionExtends) {
-            $title .= ' : ' . $this->sectionExtends;
+        if ($this->getExtends()) {
+            $title .= ' : ' . $this->getExtends();
         }
 
         return $this->applyConstants($title);
