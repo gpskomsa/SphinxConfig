@@ -63,11 +63,19 @@ class Module implements ConsoleUsageProviderInterface
                         $sm->get('SphinxConfigModuleOptions'),
                         $sm->get('SectionFactory')
                     );
+                },
+                'SectionFactory' => function($sm) {
+                    $factory = new Entity\Service\SectionFactory();
+                    $factory->setProto('source', $sm->get('Section\Source'));
+                    $factory->setProto('index', $sm->get('Section\Index'));
+                    $factory->setProto('searchd', $sm->get('Section\Searchd'));
+                    $factory->setProto('indexer', $sm->get('Section\Indexer'));
+                    return $factory;
                 }
             ),
             'invokables' => array(
-                'SectionFactory' => 'SphinxConfig\Entity\Service\SectionFactory',
                 'Section\Searchd' => 'SphinxConfig\Entity\Config\Section\Searchd',
+                'Section\Indexer' => 'SphinxConfig\Entity\Config\Section\Indexer',
                 'Section\Source' => 'SphinxConfig\Entity\Config\Section\Source',
                 'Section\Index' => 'SphinxConfig\Entity\Config\Section\Index',
                 'Section\Chunked' => 'SphinxConfig\Entity\Config\Section\Chunked',
