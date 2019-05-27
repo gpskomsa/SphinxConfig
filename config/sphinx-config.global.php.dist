@@ -5,7 +5,7 @@
  * If you have a ./config/autoload/ directory set up for your project, you can
  * drop this config file in it and change the values as you wish.
  */
-$config = array(
+$config = [
     /**
      * Current config id, defines what files with config data will be read.
      * ".yaml extension will be appended to get full filename with data"
@@ -23,9 +23,9 @@ $config = array(
      * files will be rendered to
      */
     'render_dir' => './data/sphinx-config',
-);
+];
 
 
-return array(
+return [
     'sphinx_config' => $config,
-);
+];

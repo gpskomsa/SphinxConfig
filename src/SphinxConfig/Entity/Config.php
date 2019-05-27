@@ -45,6 +45,12 @@ class Config implements SectionFactoryAwareInterface
 
     /**
      *
+     * @var SectionFactoryInterface
+     */
+    protected $sectionFactory = null;
+
+    /**
+     *
      * @param SectionFactoryInterface $sectionFactory
      * @param array $config
      * @param array $options
