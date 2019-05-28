@@ -1,11 +1,9 @@
 <?php
 namespace SphinxConfig;
 
-use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
-use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\Mvc\MvcEvent;
 
-class Module implements ConsoleUsageProviderInterface
+class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
@@ -86,15 +84,6 @@ class Module implements ConsoleUsageProviderInterface
                 'Section\Index' => false,
                 'Section\Chunked' => false,
             ),
-        );
-    }
-
-    public function getConsoleUsage(Console $console)
-    {
-        return array(
-            'To build sphinx configs for searchd and indexer tool:',
-            'sphinxconfig build [<server_id>]' => 'build sphinx\'s configs for server with id <server_id>',
-            array('<server_id>', 'server id, optional, default to current server id'),
         );
     }
 }
