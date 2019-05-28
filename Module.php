@@ -29,19 +29,6 @@ class Module
         );
     }
 
-    public function getControllerConfig()
-    {
-        return array(
-            'factories' => array(
-                'SphinxConfig\Config' => function ($sm) {
-                    return new Controller\ConfigController(
-                        $sm->getServiceLocator()->get('ConfigFactory')
-                    );
-                },
-            ),
-        );
-    }
-
     public function getServiceConfig()
     {
         return array(
